@@ -12,6 +12,7 @@ let interval;
 let frames = 0
 let eat = [];
 let obstacles = [];
+let counter = 0;
 
 
 // clases
@@ -43,9 +44,7 @@ class Board {
       this.width = 100
       this.height = 100
       this.y =  canvas.height - this.height
-      this.x = 10
-      this.vx = 0
-      this.vy = 0
+      this.x = 0
       this.animate = 0
       this.position = 0
       this.img = new Image()
@@ -88,7 +87,6 @@ class Board {
       moveDown() {
         this.y += 30
         }
-
       isTouching(obstacle) {
         return (
           this.x < obstacle.x + obstacle.width &&
@@ -97,7 +95,7 @@ class Board {
           this.y + this.height > obstacle.y
         );
       }
-     
+    
 }
 
 
@@ -115,6 +113,14 @@ class Board {
       this.x-=7
       ctx.drawImage(this.img, this.x, this.y, this.width, this.height)
     }
+    isTouching(eat) {
+        return (
+          this.x < eat.x + eat.width &&
+          this.x + this.width > eat.x &&
+          this.y < eat.y + eat.height &&
+          this.y + this.height > eat.y
+        );
+      }
   }
 
   class  Odie{
@@ -152,11 +158,11 @@ function clearCanvas() {
     if (frames % 70 === 0) {
       const randomPosition = Math.floor(Math.random() *( canvas.height - 400) ) + 350 
       const lasa = new Lasagna(randomPosition)
-      comida.push(lasa)
+      eat.push(lasa)
     }
   }
     function drawlasañas() {
-      comida.forEach(lasaña => lasaña.draw())
+      eat.forEach(lasaña => lasaña.draw())
       
   }
 
@@ -182,14 +188,31 @@ function checkCollition() {
   }
 
   function gameOver() {
-    ctx.font = '30px Courier';
-    ctx.fillText('Game over', canvas.width / 2, canvas.height / 2);
-  
+    ctx.font = '50px Courier';
+    ctx.fillText('GAME OVER', canvas.width / 2, canvas.height / 2);
+
     clearInterval(interval);
   } 
 
 
-  
+  function checkCollitionLasagna(){
+      eat.forEach((lasagna, i) => {
+          if (lasagna.isTouching(garfield)){
+                  eat.splice(i,1)
+                  counter++
+                  puntos();
+                  console.log(counter)
+                }
+      });
+  }
+
+  function puntos (){
+      if (counter === 3) {
+          clearInterval(interval)
+          ctx.font = '50px Courier';
+          ctx.fillText('WINNER', canvas.width / 2, canvas.height / 2);
+      }
+  }
 
 
 
@@ -220,7 +243,7 @@ function checkCollition() {
     board.draw(); 
     garfieldAnimation();
     garfield.draw();
-    garfield.x += garfield.vx
+   
    
     
     generatelasagna();
@@ -229,7 +252,9 @@ function checkCollition() {
     drawodie();
     garfield.draw();
     checkCollition();
-   
+    checkCollitionLasagna();
+    
+    
     
   }
 
@@ -245,12 +270,7 @@ function checkCollition() {
            return
     }
   }
-  //regresa a la posicion inicial
-  /*document.onkeyup = e => {
-    garfield.vx = 0
-    garfield.position = 0
-  }*/
-  
+ 
  
 
 
