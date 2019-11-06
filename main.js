@@ -1,6 +1,6 @@
 const images = {
     background : 'images/background.jpeg',
-    garfield  : 'images/garfiels.png',
+    garfield  : 'images/sprite3.png',
     oddie  : 'images/dog.png',
     lasag  : 'images/lasag.png'
   }
@@ -9,10 +9,6 @@ const images = {
 const canvas = document.querySelector('canvas');
 const ctx = canvas.getContext('2d');
 let interval;
-var key_left  = 37;
-var key_up    = 39;
-var ciclos=0;
-var iteraciones=1;
 let frames = 0
 let comida = [];
 let obstacles = [];
@@ -33,12 +29,6 @@ class Board {
     }
   
     draw(){
-     /*
-        this.y ++;
-        if (this.y  >  canvas.height) this.y = 0;
-          ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
-          ctx.drawImage(this.img, this.x, this.y - canvas.height, this.width, this.height);
-          interval = setInterval(update, 1000 / 30); */
           this.x --;
          if (this.x < - canvas.width) this.x = 0;
          ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
@@ -48,6 +38,76 @@ class Board {
   
   }
 
+  class Garfield {
+    constructor() {
+      this.width = 100
+      this.height = 100
+      this.y =  canvas.height - this.height
+      this.x = 10
+      this.vx = 0
+      this.vy = 0
+      this.animate = 0
+      this.position = 0
+      this.img = new Image()
+      this.img.src =images.garfield
+      this.img.onload = () => {
+        this.draw()
+      }
+    }
+    draw() {
+/// restriccion
+      if (this.y > canvas.height - this.height) {
+        this.y = canvas.height - this.height
+      } else {
+        this.vy++ 
+      }
+      ctx.drawImage(
+        // imagen de fuente
+        this.img,
+        // posición de x en la imagen (fuente, sx)
+        (this.animate * 191) / 2.06,
+        // posición de y en la imagen (fuente, sy)
+        this.position * 125 ,
+        // ancho desde la posición de x (sw)
+        191 / 2.06,
+        // alto desde la posición de y (sw)
+        125,
+        // posición de x en canvas (destino, dx)
+        this.x,
+        // posición de y en canvas (destino, dy)
+        this.y,
+        // ancho desde la posición de x en canvas (dw)
+        this.width,
+        // alto desde la posición de y en canvas (dh)
+        this.height
+      )
+    }
+      moveUp() {
+        this.y -= 30
+        }
+      moveDown() {
+        this.y += 30
+        }
+
+      isTouching(obstacle) {
+        return (
+          this.x < obstacle.x + obstacle.width &&
+          this.x + this.width > obstacle.x &&
+          this.y < obstacle.y + obstacle.height &&
+          this.y + this.height > obstacle.y
+        );
+      }
+      isTouchinglasagna(eat) {
+        return (
+          this.x < eat.x + eat.width &&
+          this.x + this.width > eat.x &&
+          this.y < eat.y + eat.height &&
+          this.y + this.height > eat.y
+        );
+      }
+}
+
+
   class Lasagna {
     constructor(y) {
       this.x = canvas.width
@@ -56,9 +116,7 @@ class Board {
       this.height = 70
       this.img = new Image()
       this.img.src = images.lasag
-      this.img.onload = () => {
-          this.draw();
-      }
+      
     }
     draw() {
       this.x-=7
@@ -70,13 +128,11 @@ class Board {
     constructor(y) {
       this.x = canvas.width
       this.y = y;
-      this.width = 140
-      this.height = 140
+      this.width = 80
+      this.height = 80
       this.img = new Image()
       this.img.src = images.oddie
-      this.img.onload = () => {
-          this.draw();
-      }
+      
     }
     draw() {
       this.x-=8
@@ -89,17 +145,14 @@ class Board {
 
   //instancias
 const board = new Board();
+const garfield = new Garfield();
 const lasagna =  new Lasagna();
 const odie =  new Odie();
 
 //funciones
 
-  function drawlasañas() {
-      comida.forEach(lasaña => lasaña.draw())
-      
-  }
-  function drawodie(){
-      obstacles.forEach(odies => odies.draw())
+function clearCanvas() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
   }
   
   function generatelasagna() {
@@ -109,12 +162,60 @@ const odie =  new Odie();
       comida.push(lasa)
     }
   }
+    function drawlasañas() {
+      comida.forEach(lasaña => lasaña.draw())
+      
+  }
 
   function generateodie() {
     if (frames % 100 === 0) {
       const randomPosition = Math.floor(Math.random() *( canvas.height - 400) ) + 350 
       const odi = new Odie(randomPosition)
       obstacles.push(odi)
+    }
+  }
+
+  function drawodie(){
+    obstacles.forEach(odies => odies.draw())
+}
+
+function checkCollition() {
+    obstacles.forEach((odi) => {
+      if (garfield.isTouching(odi)) {
+        gameOver();
+      }
+     
+    });
+  }
+
+  function gameOver() {
+    ctx.font = '30px Courier';
+    ctx.fillText('Game over', canvas.width / 2, canvas.height / 2);
+  
+    clearInterval(interval);
+  } 
+
+
+  function checkCollitionlasagna(){
+      eat.forEach((las) =>{
+          if (garfield.isTouchinglasagna(las)) {
+              gameOver();     
+          }
+      });
+  }
+
+
+
+ //loop de animacion
+   
+
+  function garfieldAnimation() {
+    if (frames % 15 === 0) {
+      if (garfield.animate === 1) {
+        garfield.animate = 0
+      } else {
+        garfield.animate++
+      }
     }
   }
 
@@ -130,27 +231,38 @@ const odie =  new Odie();
     frames ++
     clearInterval();
     board.draw(); 
+    garfieldAnimation();
+    garfield.draw();
+    garfield.x += garfield.vx
+   
+    
     generatelasagna();
     drawlasañas();
     generateodie();
     drawodie();
+    garfield.draw();
+    checkCollition();
+    checkCollitionlasagna();
     
   }
 
-
-
-
   //listeners
   document.onkeydown = e => {
-    switch (e.keyCode) {
-      case 37:
-        flash.moveLeft()
+   
+    switch (e.keyCode) {     
+      case 38:
+        garfield.moveUp()
         return
-      case 39:
-        flash.moveRight()
-        return
+       case 40:
+           garfield.moveDown()
+           return
     }
   }
+  //regresa a la posicion inicial
+  /*document.onkeyup = e => {
+    garfield.vx = 0
+    garfield.position = 0
+  }*/
   
  
 
