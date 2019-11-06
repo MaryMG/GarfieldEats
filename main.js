@@ -10,7 +10,7 @@ const canvas = document.querySelector('canvas');
 const ctx = canvas.getContext('2d');
 let interval;
 let frames = 0
-let comida = [];
+let eat = [];
 let obstacles = [];
 
 
@@ -97,14 +97,7 @@ class Board {
           this.y + this.height > obstacle.y
         );
       }
-      isTouchinglasagna(eat) {
-        return (
-          this.x < eat.x + eat.width &&
-          this.x + this.width > eat.x &&
-          this.y < eat.y + eat.height &&
-          this.y + this.height > eat.y
-        );
-      }
+     
 }
 
 
@@ -196,13 +189,7 @@ function checkCollition() {
   } 
 
 
-  function checkCollitionlasagna(){
-      eat.forEach((las) =>{
-          if (garfield.isTouchinglasagna(las)) {
-              gameOver();     
-          }
-      });
-  }
+  
 
 
 
@@ -242,7 +229,7 @@ function checkCollition() {
     drawodie();
     garfield.draw();
     checkCollition();
-    checkCollitionlasagna();
+   
     
   }
 
