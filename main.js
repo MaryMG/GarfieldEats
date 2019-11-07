@@ -55,6 +55,12 @@ class Board {
     }
     draw() {
 /// restriccion
+if (this.y > canvas.height - this.height) {
+    this.y = canvas.height - this.height
+  } else {
+    this.vy++ 
+  }
+
 
       ctx.drawImage(
         // imagen de fuente
@@ -254,9 +260,9 @@ function checkCollition() {
     nermal.draw()
    // generatelasagna2();
     // drawlasañas2();
-    // generateodie2();
-    // drawodie2();
-    // checkCollition2();
+     generateodie2();
+     drawodie2();
+     checkCollition2();
     // checkCollitionLasagna2();
   }
 

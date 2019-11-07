@@ -1,7 +1,7 @@
  const images2 = {
     background : 'images/background.jpeg',
     nermall :'images/nermal.png',
-//     oddie  : 'images/dog.png',
+    oddie  : 'images/dog.png',
 //     lasag  : 'images/lasag.png'
   }
 
@@ -11,8 +11,8 @@
  let interval2;
  let frames2 = 0;
 // let eat2 = [];
-// let obstacles2 = [];
-// let counter2 = 0;
+ let obstacles2 = [];
+ let counter2 = 0;
 
 
  // clases
@@ -58,6 +58,11 @@
      draw() {
        ctx2.drawImage(this.img, this.x, this.y, this.width, this.height)
 // /// restriccion
+     if (this.y > player.height - this.height) {
+     this.y = player.height - this.height
+    } else {
+    this.vy++  
+   }
 
        }
 
@@ -69,6 +74,14 @@
         moveDown2() {
           console.log('going down')
           this.y += 90
+          }
+          isTouching(obstacle2) {
+            return (
+              this.x < obstacle2.x + obstacle2.width &&
+              this.x + this.width > obstacle2.x &&
+              this.y < obstacle2.y + obstacle2.height &&
+              this.y + this.height > obstacle2.y
+            );
           }
 
       }
@@ -111,21 +124,21 @@
 //       }
 //   }
 
-//   class  Odie2{
-//     constructor(y) {
-//       this.x = player.width
-//       this.y = y;
-//       this.width = 90
-//       this.height = 90
-//       this.img = new Image()
-//       this.img.src = images2.oddie
+   class  Odie2{
+     constructor(y) {
+       this.x = player.width
+       this.y = y;
+       this.width = 90
+       this.height = 90
+       this.img = new Image()
+       this.img.src = images2.oddie
       
-//     }
-//     draw() {
-//       this.x-=8
-//       ctx2.drawImage(this.img, this.x, this.y, this.width, this.height)
-//     }
-//   }
+     }
+     draw() {
+       this.x-=8
+       ctx2.drawImage(this.img, this.x, this.y, this.width, this.height)
+     }
+   }
 
 
 
@@ -134,7 +147,7 @@
    const board2 = new Board2();
    const nermal = new Nermal();
 // const lasagna2 =  new Lasagna2();
-// const odie2 =  new Odie2();
+ const odie2 =  new Odie2();
 
 // //funciones
 
@@ -154,33 +167,33 @@
       
 //   }
 
-//   function generateodie2() {
-//     if (frames2 % 100 === 0) {
-//       const randomPosition = Math.floor(Math.random() *( player.height - 400) ) + 350 
-//       const odi2 = new Odie2(randomPosition)
-//       obstacles2.push(odi2)
-//     }
-//   }
+   function generateodie2() {
+     if (frames2 % 100 === 0) {
+       const randomPosition = Math.floor(Math.random() *( player.height - 400) ) + 350 
+       const odi2 = new Odie2(randomPosition)
+       obstacles2.push(odi2)
+     }
+   }
 
-//   function drawodie2(){
-//     obstacles2.forEach(odies2 => odies2.draw())
-// }
+   function drawodie2(){
+     obstacles2.forEach(odies2 => odies2.draw())
+ }
 
-// function checkCollition2() {
-//     obstacles2.forEach((odi2) => {
-//       if (nermal.isTouching(odi2)) {
-//         gameOver2();
-//       }
+ function checkCollition2() {
+     obstacles2.forEach((odi2) => {
+       if (nermal.isTouching(odi2)) {
+         gameOver2();
+       }
      
-//     });
-//   }
+     });
+   }
 
-//   function gameOver2() {
-//     ctx2.font = '50px Courier';
-//     ctx2.fillText('GAME OVER', player.width / 2, player.height / 2);
+   function gameOver2() {
+     ctx2.font = '50px Courier';
+     ctx2.fillText('GAME OVER', player.width / 2, player.height / 2);
 
-//     clearInterval(interval2);
-//   } 
+     clearInterval(interval2);
+   } 
 
 
 //   function checkCollitionLasagna2(){
