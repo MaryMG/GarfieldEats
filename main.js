@@ -6,7 +6,7 @@ const images = {
   }
 
 //variables constates 
-const canvas = document.querySelector('canvas');
+const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 let interval;
 let frames = 0
@@ -55,11 +55,7 @@ class Board {
     }
     draw() {
 /// restriccion
-      if (this.y > canvas.height - this.height) {
-        this.y = canvas.height - this.height
-      } else {
-        this.vy++ 
-      }
+
       ctx.drawImage(
         // imagen de fuente
         this.img,
@@ -127,8 +123,8 @@ class Board {
     constructor(y) {
       this.x = canvas.width
       this.y = y;
-      this.width = 80
-      this.height = 80
+      this.width = 90
+      this.height = 90
       this.img = new Image()
       this.img.src = images.oddie
       
@@ -201,7 +197,7 @@ function checkCollition() {
                   eat.splice(i,1)
                   counter++
                   puntos();
-                  console.log(counter)
+                  
                 }
       });
   }
@@ -229,12 +225,13 @@ function checkCollition() {
     }
   }
 
+  function startGame () {
+    interval = setInterval(update, 1000 / 60);
+  }
 
   window.onload = function() {
       startGame();
-      function startGame () {
-        interval = setInterval(update, 1000 / 60);
-      }
+      
   }
 
   function update() {
@@ -243,9 +240,6 @@ function checkCollition() {
     board.draw(); 
     garfieldAnimation();
     garfield.draw();
-   
-   
-    
     generatelasagna();
     drawlasañas();
     generateodie();
@@ -253,21 +247,38 @@ function checkCollition() {
     garfield.draw();
     checkCollition();
     checkCollitionLasagna();
-    
-    
-    
+   
+    frames2++
+    clearPlayer();
+    board2.draw(); 
+    nermal.draw()
+   // generatelasagna2();
+    // drawlasañas2();
+    // generateodie2();
+    // drawodie2();
+    // checkCollition2();
+    // checkCollitionLasagna2();
   }
 
   //listeners
+  
   document.onkeydown = e => {
    
     switch (e.keyCode) {     
       case 38:
+        e.preventDefault()
         garfield.moveUp()
         return
        case 40:
-           garfield.moveDown()
-           return
+        e.preventDefault()
+        garfield.moveDown()
+        return
+       case 87:
+         nermal.moveUp2()
+         return
+       case 90:
+         nermal.moveDown2()
+         return
     }
   }
  
