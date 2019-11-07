@@ -2,7 +2,7 @@
     background : 'images/background.jpeg',
     nermall :'images/nermal.png',
     oddie  : 'images/dog.png',
-//     lasag  : 'images/lasag.png'
+     lasag  : 'images/lasag.png'
   }
 
 // //variables constates 
@@ -10,7 +10,7 @@
  const ctx2 = player.getContext('2d');
  let interval2;
  let frames2 = 0;
-// let eat2 = [];
+ let eat2 = [];
  let obstacles2 = [];
  let counter2 = 0;
 
@@ -85,44 +85,33 @@
           }
 
       }
-      
     
-       
-      
-//       isTouching(obstacle2) {
-//         return (
-//           this.x < obstacle2.x + obstacle2.width &&
-//           this.x + this.width > obstacle2.x &&
-//           this.y < obstacle2.y + obstacle2.height &&
-//           this.y + this.height > obstacle2.y
-//         );
-//       }
     
-//     }
+      
   
-//   class Lasagna2 {
-//     constructor(y) {
-//       this.x = player.width
-//       this.y = y;
-//       this.width = 70
-//       this.height = 70
-//       this.img = new Image()
-//       this.img.src = images2.lasag
+   class Lasagna2 {
+     constructor(y) {
+       this.x = player.width
+       this.y = y;
+       this.width = 70
+       this.height = 70
+       this.img = new Image()
+       this.img.src = images2.lasag
       
-//     }
-//     draw() {
-//       this.x-=7
-//       ctx2.drawImage(this.img, this.x, this.y, this.width, this.height)
-//     }
-//     isTouching(eat2) {
-//         return (
-//           this.x < eat2.x + eat2.width &&
-//           this.x + this.width > eat2.x &&
-//           this.y < eat2.y + eat2.height &&
-//           this.y + this.height > eat2.y
-//         );
-//       }
-//   }
+     }
+     draw() {
+       this.x-=7
+       ctx2.drawImage(this.img, this.x, this.y, this.width, this.height)
+     }
+     isTouching(eat2) {
+         return (
+           this.x < eat2.x + eat2.width &&
+           this.x + this.width > eat2.x &&
+           this.y < eat2.y + eat2.height &&
+           this.y + this.height > eat2.y
+         );
+       }
+   }
 
    class  Odie2{
      constructor(y) {
@@ -146,7 +135,7 @@
 //   //instancias
    const board2 = new Board2();
    const nermal = new Nermal();
-// const lasagna2 =  new Lasagna2();
+ const lasagna2 =  new Lasagna2();
  const odie2 =  new Odie2();
 
 // //funciones
@@ -155,17 +144,17 @@
      ctx2.clearRect(0, 0, player.width, player.height)
    }
   
-//   function generatelasagna2() {
-//     if (frames2 % 70 === 0) {
-//       const randomPosition = Math.floor(Math.random() *( player.height - 400) ) + 350 
-//       const lasa2 = new Lasagna2(randomPosition)
-//       eat2.push(lasa2)
-//     }
-//   }
-//     function drawlasañas2() {
-//       eat2.forEach(lasaña2 => lasaña2.draw())
+   function generatelasagna2() {
+     if (frames2 % 70 === 0) {
+       const randomPosition = Math.floor(Math.random() *( player.height - 400) ) + 350 
+       const lasa2 = new Lasagna2(randomPosition)
+       eat2.push(lasa2)
+     }
+   }
+     function drawlasañas2() {
+       eat2.forEach(lasaña2 => lasaña2.draw())
       
-//   }
+   }
 
    function generateodie2() {
      if (frames2 % 100 === 0) {
@@ -196,24 +185,24 @@
    } 
 
 
-//   function checkCollitionLasagna2(){
-//       eat2.forEach((lasagna2, i) => {
-//           if (lasagna2.isTouching(nermal)){
-//                   eat2.splice(i,1)
-//                   counter2++
-//                   puntos2();
+   function checkCollitionLasagna2(){
+       eat2.forEach((lasagna2, i) => {
+           if (lasagna2.isTouching(nermal)){
+                   eat2.splice(i,1)
+                   counter2++
+                   puntos2();
                   
-//                 }
-//       });
-//   }
+                 }
+       });
+   }
 
-//   function puntos2 (){
-//       if (counter2 === 3) {
-//           clearInterval(interval2)
-//           ctx2.font = '50px Courier';
-//           ctx2.fillText('WINNER', player.width / 2, player.height / 2);
-//       }
-//   }
+   function puntos2 (){
+       if (counter2 === 3) {
+           clearInterval(interval2)
+           ctx2.font = '50px Courier';
+           ctx2.fillText('WINNER', player.width / 2, player.height / 2);
+       }
+   }
 
 
 

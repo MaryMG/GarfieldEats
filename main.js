@@ -258,12 +258,12 @@ function checkCollition() {
     clearPlayer();
     board2.draw(); 
     nermal.draw()
-   // generatelasagna2();
-    // drawlasañas2();
+    generatelasagna2();
+    drawlasañas2();
      generateodie2();
      drawodie2();
      checkCollition2();
-    // checkCollitionLasagna2();
+     checkCollitionLasagna2();
   }
 
   //listeners
