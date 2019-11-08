@@ -67,10 +67,10 @@
        }
 
        moveUp2() {
-        this.y -= 87
+        this.y -= 38
         }
         moveDown2() { 
-          this.y += 83
+          this.y += 40
           }
           isTouching(obstacle2) {
             return (
@@ -141,7 +141,7 @@
    }
   
    function generatelasagna2() {
-     if (frames2 % 60 === 0) {
+     if (frames2 % 50 === 0) {
        const randomPosition = Math.floor(Math.random() *( player.height - 400) ) + 350 
        const lasa2 = new Lasagna2(randomPosition)
        eat2.push(lasa2)
@@ -153,7 +153,7 @@
    }
 
    function generateodie2() {
-     if (frames2 % 50 === 0) {
+     if (frames2 % 60 === 0) {
        const randomPosition = Math.floor(Math.random() *( player.height - 400) ) + 350 
        const odi2 = new Odie2(randomPosition)
        obstacles2.push(odi2)

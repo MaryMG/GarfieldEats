@@ -84,10 +84,10 @@ if (this.y > canvas.height - this.height) {
       )
     }
       moveUp() {
-        this.y -= 30
+        this.y -= 87
         }
       moveDown() {
-        this.y += 30
+        this.y += 83
         }
       isTouching(obstacle) {
         return (
@@ -155,7 +155,7 @@ function clearCanvas() {
   }
   
   function generatelasagna() {
-    if (frames % 60 === 0) {
+    if (frames % 50 === 0) {
       const randomPosition = Math.floor(Math.random() *( canvas.height - 400) ) + 350 
       const lasa = new Lasagna(randomPosition)
       eat.push(lasa)
@@ -167,7 +167,7 @@ function clearCanvas() {
   }
 
   function generateodie() {
-    if (frames % 50 === 0) {
+    if (frames % 60 === 0) {
       const randomPosition = Math.floor(Math.random() *( canvas.height - 400) ) + 350 
       const odi = new Odie(randomPosition)
       obstacles.push(odi)
@@ -278,18 +278,18 @@ function checkCollition() {
   document.onkeydown = e => {
    
     switch (e.keyCode) {     
-      case 38:
+      case 87:
         e.preventDefault()
         garfield.moveUp()
         return
-       case 40:
+       case 83:
         e.preventDefault()
         garfield.moveDown()
         return
-       case 87:
+       case 38:
          nermal.moveUp2()
          return
-       case 83:
+       case 40:
          nermal.moveDown2()
          return
     }

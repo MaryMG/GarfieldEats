@@ -2,7 +2,7 @@ body img{
    width: 30%;
    position:absolute; bottom:50%;
    position:absolute; right:35%;
-   
+
     
 }
 
@@ -21,7 +21,7 @@ border-width: 3px;
 border-style: solid;
 border-radius:35px;
 position: absolute;
-margin-top: 450px;
+margin-top: 400px;
 
 
 
@@ -35,4 +35,16 @@ margin-top: 450px;
     
 
     
+}
+#instrucciones{
+    
+    position: absolute;
+    left: 530px;
+    margin-top: 450px;
+    text-align: center;
+    
+}
+
+h2,h3{
+    color: orange;
 }
