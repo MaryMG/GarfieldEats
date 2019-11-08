@@ -1,0 +1,38 @@
+body img{
+   width: 30%;
+   position:absolute; bottom:50%;
+   position:absolute; right:35%;
+   
+    
+}
+
+.boton{
+text-decoration:none;
+font-weight: 600;
+font-size: 20px;
+color:#333333;
+padding-top:15px;
+padding-bottom:15px;
+padding-left:40px;
+padding-right:40px;
+background-color:#FFD27D;
+border-color: #d8d8d8;
+border-width: 3px;
+border-style: solid;
+border-radius:35px;
+position: absolute;
+margin-top: 450px;
+
+
+
+}
+.move{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    
+
+    
+}

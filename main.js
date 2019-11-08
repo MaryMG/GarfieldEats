@@ -96,8 +96,7 @@ if (this.y > canvas.height - this.height) {
           this.y < obstacle.y + obstacle.height &&
           this.y + this.height > obstacle.y
         );
-      }
-    
+      }    
 }
 
 
@@ -108,8 +107,7 @@ if (this.y > canvas.height - this.height) {
       this.width = 70
       this.height = 70
       this.img = new Image()
-      this.img.src = images.lasag
-      
+      this.img.src = images.lasag      
     }
     draw() {
       this.x-=7
@@ -157,7 +155,7 @@ function clearCanvas() {
   }
   
   function generatelasagna() {
-    if (frames % 70 === 0) {
+    if (frames % 60 === 0) {
       const randomPosition = Math.floor(Math.random() *( canvas.height - 400) ) + 350 
       const lasa = new Lasagna(randomPosition)
       eat.push(lasa)
@@ -169,7 +167,7 @@ function clearCanvas() {
   }
 
   function generateodie() {
-    if (frames % 100 === 0) {
+    if (frames % 50 === 0) {
       const randomPosition = Math.floor(Math.random() *( canvas.height - 400) ) + 350 
       const odi = new Odie(randomPosition)
       obstacles.push(odi)
@@ -209,7 +207,7 @@ function checkCollition() {
   }
 
   function puntos (){
-      if (counter === 3) {
+      if (counter === 5) {
           clearInterval(interval)
           ctx.font = '50px Courier';
           ctx.fillText('WINNER', canvas.width / 2, canvas.height / 2);
@@ -231,14 +229,19 @@ function checkCollition() {
     }
   }
 
-  function startGame () {
-    interval = setInterval(update, 1000 / 60);
-  }
+  var audio = document.getElementById('audio');
 
   window.onload = function() {
-      startGame();
-      
+    startGame();
+    
+}
+
+  function startGame () {
+    interval = setInterval(update, 900 / 60); 
+    audio.play();
   }
+
+ 
 
   function update() {
     frames ++
@@ -253,18 +256,22 @@ function checkCollition() {
     garfield.draw();
     checkCollition();
     checkCollitionLasagna();
-   
+
     frames2++
     clearPlayer();
     board2.draw(); 
     nermal.draw()
     generatelasagna2();
     drawlasañas2();
-     generateodie2();
-     drawodie2();
-     checkCollition2();
-     checkCollitionLasagna2();
+    generateodie2();
+    drawodie2();
+    checkCollition2();
+    checkCollitionLasagna2();
+   
+   
   }
+
+  
 
   //listeners
   
@@ -282,7 +289,7 @@ function checkCollition() {
        case 87:
          nermal.moveUp2()
          return
-       case 90:
+       case 83:
          nermal.moveDown2()
          return
     }

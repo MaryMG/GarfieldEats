@@ -2,7 +2,7 @@
     background : 'images/background.jpeg',
     nermall :'images/nermal.png',
     oddie  : 'images/dog.png',
-     lasag  : 'images/lasag.png'
+    lasag  : 'images/lasag.png'
   }
 
 // //variables constates 
@@ -67,13 +67,10 @@
        }
 
        moveUp2() {
-         console.log('going up')
         this.y -= 87
         }
-
-        moveDown2() {
-          console.log('going down')
-          this.y += 90
+        moveDown2() { 
+          this.y += 83
           }
           isTouching(obstacle2) {
             return (
@@ -96,8 +93,7 @@
        this.width = 70
        this.height = 70
        this.img = new Image()
-       this.img.src = images2.lasag
-      
+       this.img.src = images2.lasag      
      }
      draw() {
        this.x-=7
@@ -135,8 +131,8 @@
 //   //instancias
    const board2 = new Board2();
    const nermal = new Nermal();
- const lasagna2 =  new Lasagna2();
- const odie2 =  new Odie2();
+   const lasagna2 =  new Lasagna2();
+   const odie2 =  new Odie2();
 
 // //funciones
 
@@ -145,7 +141,7 @@
    }
   
    function generatelasagna2() {
-     if (frames2 % 70 === 0) {
+     if (frames2 % 60 === 0) {
        const randomPosition = Math.floor(Math.random() *( player.height - 400) ) + 350 
        const lasa2 = new Lasagna2(randomPosition)
        eat2.push(lasa2)
@@ -157,7 +153,7 @@
    }
 
    function generateodie2() {
-     if (frames2 % 100 === 0) {
+     if (frames2 % 50 === 0) {
        const randomPosition = Math.floor(Math.random() *( player.height - 400) ) + 350 
        const odi2 = new Odie2(randomPosition)
        obstacles2.push(odi2)
@@ -181,7 +177,7 @@
      ctx2.font = '50px Courier';
      ctx2.fillText('GAME OVER', player.width / 2, player.height / 2);
 
-     clearInterval(interval2);
+     clearInterval(interval);
    } 
 
 
@@ -197,8 +193,8 @@
    }
 
    function puntos2 (){
-       if (counter2 === 3) {
-           clearInterval(interval2)
+       if (counter2 === 5) {
+           clearInterval(interval)
            ctx2.font = '50px Courier';
            ctx2.fillText('WINNER', player.width / 2, player.height / 2);
        }
@@ -206,6 +202,5 @@
 
 
 
-//  //loop de animacion
    
 
